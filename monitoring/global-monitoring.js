@@ -368,7 +368,7 @@ function parameter_onClick() {
     for (var img=0;img<s1_CollectionLength; img++) {
       var item = s1_CollectionList.get(img);
       var stringID = ee.String(item);
-      var createdScene = ee.Image(ee.String(sensorInfo).cat(stringID).getInfo());
+      var createdScene = ee.Image(ee.String(sensorInfo).cat(stringID).getInfo()).select('VV');
       Export.image.toDrive({image:createdScene,description:ee.String(stringID).getInfo(),crs:'EPSG:4326',scale:10,maxPixels:1e13});
     }
   }
@@ -378,7 +378,7 @@ function parameter_onClick() {
     for (var img=0;img<s2_CollectionLength; img++) {
       var item = s2_CollectionList.get(img);
       var stringID = ee.String(item);
-      var createdScene = ee.Image(ee.String(sensorInfo).cat(stringID).getInfo());
+      var createdScene = ee.Image(ee.String(sensorInfo).cat(stringID).getInfo()).select(['B2','B3','B4']);
       Export.image.toDrive({image:createdScene,description:ee.String(stringID).getInfo(),crs:'EPSG:4326',scale:10,maxPixels:1e13});
     }
   }
@@ -388,7 +388,7 @@ function parameter_onClick() {
     for (var img=0;img<l7_CollectionLength; img++) {
       var item = l7_CollectionList.get(img);
       var stringID = ee.String(item);
-      var createdScene = ee.Image(ee.String(sensorInfo).cat(stringID).getInfo());
+      var createdScene = ee.Image(ee.String(sensorInfo).cat(stringID).getInfo()).select(['B1','B2','B3']);
       Export.image.toDrive({image:createdScene,description:ee.String(stringID).getInfo(),crs:'EPSG:4326',scale:30,maxPixels:1e13});
     }
   }
@@ -398,7 +398,7 @@ function parameter_onClick() {
     for (var img=0;img<l8_CollectionLength; img++) {
       var item = l8_CollectionList.get(img);
       var stringID = ee.String(item);
-      var createdScene = ee.Image(ee.String(sensorInfo).cat(stringID).getInfo());
+      var createdScene = ee.Image(ee.String(sensorInfo).cat(stringID).getInfo()).select(['B2','B3','B4']);
       Export.image.toDrive({image:createdScene,description:ee.String(stringID).getInfo(),crs:'EPSG:4326',scale:30,maxPixels:1e13});
     }
   }
@@ -408,7 +408,7 @@ function parameter_onClick() {
     for (var img=0;img<s1_CollectionLength; img++) {
       var item = s1_CollectionList.get(img);
       var stringID = ee.String(item);
-      var createdScene = ee.Image(ee.String(sensorInfo).cat(stringID).getInfo()).clip(aoi);
+      var createdScene = ee.Image(ee.String(sensorInfo).cat(stringID).getInfo()).select('VV').clip(aoi);
       Export.image.toDrive({image:createdScene,description:ee.String(stringID).getInfo(),crs:'EPSG:4326',region:aoi,scale:10,maxPixels:1e13});
     }
   }
@@ -418,7 +418,7 @@ function parameter_onClick() {
     for (var img=0;img<s2_CollectionLength; img++) {
       var item = s2_CollectionList.get(img);
       var stringID = ee.String(item);
-      var createdScene = ee.Image(ee.String(sensorInfo).cat(stringID).getInfo()).clip(aoi);
+      var createdScene = ee.Image(ee.String(sensorInfo).cat(stringID).getInfo()).select(['B2','B3','B4']).clip(aoi);
       Export.image.toDrive({image:createdScene,description:ee.String(stringID).getInfo(),crs:'EPSG:4326',region:aoi,scale:10,maxPixels:1e13});
     }
   }
@@ -428,7 +428,7 @@ function parameter_onClick() {
     for (var img=0;img<l7_CollectionLength; img++) {
       var item = l7_CollectionList.get(img);
       var stringID = ee.String(item);
-      var createdScene = ee.Image(ee.String(sensorInfo).cat(stringID).getInfo()).clip(aoi);
+      var createdScene = ee.Image(ee.String(sensorInfo).cat(stringID).getInfo()).select(['B1','B2','B3']).clip(aoi);
       Export.image.toDrive({image:createdScene,description:ee.String(stringID).getInfo(),crs:'EPSG:4326',region:aoi,scale:30,maxPixels:1e13});
     }
   }
@@ -438,7 +438,7 @@ function parameter_onClick() {
     for (var img=0;img<l8_CollectionLength; img++) {
       var item = l8_CollectionList.get(img);
       var stringID = ee.String(item);
-      var createdScene = ee.Image(ee.String(sensorInfo).cat(stringID).getInfo()).clip(aoi);
+      var createdScene = ee.Image(ee.String(sensorInfo).cat(stringID).getInfo()).select(['B2','B3','B4']).clip(aoi);
       Export.image.toDrive({image:createdScene,description:ee.String(stringID).getInfo(),crs:'EPSG:4326',region:aoi,scale:30,maxPixels:1e13});
     }
   }
@@ -452,7 +452,7 @@ function parameter_onClick() {
   // Add the updated Individual Scenes
   panel.add(sceneTitlePanel);
   // panel.add(HorizontalPanel([(sceneSelection),(sceneSelection_clipped)]));
-  panel.add(h5)
+  panel.add(h5);
   
   // Add the Individual Scene Export Prep
   panel.add(sceneExportTitle);
@@ -523,4 +523,10 @@ ui.root.add(panel).add(map);
                 WAS: var date = ee.String(imageDate).split("T").get(0);
                 NOW: var date = ee.String(imageDate);
            - Set the cursor to be a crosshair 
+2017/07/07 - Exported Scenes no longer export all bands, in hope to reduce export size
+                S1: 'VV' band only
+                S2: 'B2','B3','B4' only (Blue, Green, Red)
+                L7: 'B1','B2','B3' only (Blue, Green, Red)
+                L8: 'B2','B3','B4' only (Blue, Green, Red)
+            - See lines: 371, 381, 391, 401, 411, 421, 431, 441
 */
