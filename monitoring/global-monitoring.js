@@ -108,7 +108,7 @@ function parameter_onClick() {
   var centerPoint= ee.Geometry.Point([long,lati]);
   var aoi = centerPoint.buffer(70000);
 
-  var s1_p = S1.filter(basicFilter).filter(ee.Filter.eq('transmitterReceiverPolarisation', s1Bands)).select(s1Bands).filter(ee.Filter.eq('resolution','H')).filterBounds(aoi);
+  var s1_p = S1.filter(basicFilter).filter(ee.Filter.listContains('transmitterReceiverPolarisation', s1Bands)).select(s1Bands).filter(ee.Filter.eq('resolution','H')).filterBounds(aoi);
   var s2_p = S2.filter(basicFilter).select(['B2','B3','B4']).filterBounds(aoi);
   var l7_p = L7.filter(basicFilter).select(['B1','B2','B3']).filterBounds(aoi);
   var l8_p = L8.filter(basicFilter).select(['B2','B3','B4']).filterBounds(aoi);  
@@ -529,4 +529,8 @@ ui.root.add(panel).add(map);
                 L7: 'B1','B2','B3' only (Blue, Green, Red)
                 L8: 'B2','B3','B4' only (Blue, Green, Red)
             - See lines: 371, 381, 391, 401, 411, 421, 431, 441
+2017/08/17  - Updated Sentinel 1 image collection processing, old method no longer works
+              See line: 111
+                WAS: var s1_p = S1.filter(basicFilter).filter(ee.Filter.eq('transmitterReceiverPolarisation', s1Bands)).select(s1Bands).filter(ee.Filter.eq('resolution','H')).filterBounds(aoi);
+                NOW: var s1_p = S1.filter(basicFilter).filter(ee.Filter.listContains('transmitterReceiverPolarisation', s1Bands)).select(s1Bands).filter(ee.Filter.eq('resolution','H')).filterBounds(aoi);
 */
