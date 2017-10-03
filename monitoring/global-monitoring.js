@@ -367,9 +367,8 @@ function parameter_onClick() {
     var sensorInfo='COPERNICUS/S1_GRD/';
     for (var img=0;img<s1_CollectionLength; img++) {
       var item = s1_CollectionList.get(img);
-      var stringID = ee.String(item);
-      var createdScene = ee.Image(ee.String(sensorInfo).cat(stringID).getInfo()).select('VV');
-      Export.image.toDrive({image:createdScene,description:ee.String(stringID).getInfo(),crs:'EPSG:4326',scale:10,maxPixels:1e13});
+      var createdScene = ee.Image(ee.String(sensorInfo).cat(item).getInfo()).select('VV');
+      Export.image.toDrive({image:createdScene,description:item.getInfo(),crs:'EPSG:4326',scale:10,maxPixels:1e13,region:createdScene.geometry()});
     }
   }
 
@@ -377,9 +376,8 @@ function parameter_onClick() {
     var sensorInfo='COPERNICUS/S2/';
     for (var img=0;img<s2_CollectionLength; img++) {
       var item = s2_CollectionList.get(img);
-      var stringID = ee.String(item);
-      var createdScene = ee.Image(ee.String(sensorInfo).cat(stringID).getInfo()).select(['B2','B3','B4']);
-      Export.image.toDrive({image:createdScene,description:ee.String(stringID).getInfo(),crs:'EPSG:4326',scale:10,maxPixels:1e13});
+      var createdScene = ee.Image(ee.String(sensorInfo).cat(item).getInfo()).select(['B2','B3','B4']);
+      Export.image.toDrive({image:createdScene,description:item.getInfo(),crs:'EPSG:4326',scale:10,maxPixels:1e13,region:createdScene.geometry()});
     }
   }
   
@@ -387,9 +385,8 @@ function parameter_onClick() {
     var sensorInfo='LANDSAT/LE07/C01/T1_RT/';
     for (var img=0;img<l7_CollectionLength; img++) {
       var item = l7_CollectionList.get(img);
-      var stringID = ee.String(item);
-      var createdScene = ee.Image(ee.String(sensorInfo).cat(stringID).getInfo()).select(['B1','B2','B3']);
-      Export.image.toDrive({image:createdScene,description:ee.String(stringID).getInfo(),crs:'EPSG:4326',scale:30,maxPixels:1e13});
+      var createdScene = ee.Image(ee.String(sensorInfo).cat(item).getInfo()).select(['B1','B2','B3']);
+      Export.image.toDrive({image:createdScene,description:item.getInfo(),crs:'EPSG:4326',scale:30,maxPixels:1e13,region:createdScene.geometry()});
     }
   }
   
@@ -397,9 +394,8 @@ function parameter_onClick() {
     var sensorInfo='LANDSAT/LC08/C01/T1_RT/';
     for (var img=0;img<l8_CollectionLength; img++) {
       var item = l8_CollectionList.get(img);
-      var stringID = ee.String(item);
-      var createdScene = ee.Image(ee.String(sensorInfo).cat(stringID).getInfo()).select(['B2','B3','B4']);
-      Export.image.toDrive({image:createdScene,description:ee.String(stringID).getInfo(),crs:'EPSG:4326',scale:30,maxPixels:1e13});
+      var createdScene = ee.Image(ee.String(sensorInfo).cat(item).getInfo()).select(['B2','B3','B4']);
+      Export.image.toDrive({image:createdScene,description:item.getInfo(),crs:'EPSG:4326',scale:30,maxPixels:1e13,region:createdScene.geometry()});
     }
   }
   
@@ -407,9 +403,8 @@ function parameter_onClick() {
     var sensorInfo='COPERNICUS/S1_GRD/';
     for (var img=0;img<s1_CollectionLength; img++) {
       var item = s1_CollectionList.get(img);
-      var stringID = ee.String(item);
-      var createdScene = ee.Image(ee.String(sensorInfo).cat(stringID).getInfo()).select('VV').clip(aoi);
-      Export.image.toDrive({image:createdScene,description:ee.String(stringID).getInfo(),crs:'EPSG:4326',region:aoi,scale:10,maxPixels:1e13});
+      var createdScene = ee.Image(ee.String(sensorInfo).cat(item).getInfo()).select('VV').clip(aoi);
+      Export.image.toDrive({image:createdScene,description:item.getInfo(),crs:'EPSG:4326',region:aoi,scale:10,maxPixels:1e13});
     }
   }
 
@@ -417,9 +412,8 @@ function parameter_onClick() {
     var sensorInfo='COPERNICUS/S2/';
     for (var img=0;img<s2_CollectionLength; img++) {
       var item = s2_CollectionList.get(img);
-      var stringID = ee.String(item);
-      var createdScene = ee.Image(ee.String(sensorInfo).cat(stringID).getInfo()).select(['B2','B3','B4']).clip(aoi);
-      Export.image.toDrive({image:createdScene,description:ee.String(stringID).getInfo(),crs:'EPSG:4326',region:aoi,scale:10,maxPixels:1e13});
+      var createdScene = ee.Image(ee.String(sensorInfo).cat(item).getInfo()).select(['B2','B3','B4']).clip(aoi);
+      Export.image.toDrive({image:createdScene,description:item.getInfo(),crs:'EPSG:4326',region:aoi,scale:10,maxPixels:1e13});
     }
   }
   
@@ -427,9 +421,8 @@ function parameter_onClick() {
     var sensorInfo='LANDSAT/LE07/C01/T1_RT/';
     for (var img=0;img<l7_CollectionLength; img++) {
       var item = l7_CollectionList.get(img);
-      var stringID = ee.String(item);
-      var createdScene = ee.Image(ee.String(sensorInfo).cat(stringID).getInfo()).select(['B1','B2','B3']).clip(aoi);
-      Export.image.toDrive({image:createdScene,description:ee.String(stringID).getInfo(),crs:'EPSG:4326',region:aoi,scale:30,maxPixels:1e13});
+      var createdScene = ee.Image(ee.String(sensorInfo).cat(item).getInfo()).select(['B1','B2','B3']).clip(aoi);
+      Export.image.toDrive({image:createdScene,description:item.getInfo(),crs:'EPSG:4326',region:aoi,scale:30,maxPixels:1e13});
     }
   }
   
@@ -437,9 +430,8 @@ function parameter_onClick() {
     var sensorInfo='LANDSAT/LC08/C01/T1_RT/';
     for (var img=0;img<l8_CollectionLength; img++) {
       var item = l8_CollectionList.get(img);
-      var stringID = ee.String(item);
-      var createdScene = ee.Image(ee.String(sensorInfo).cat(stringID).getInfo()).select(['B2','B3','B4']).clip(aoi);
-      Export.image.toDrive({image:createdScene,description:ee.String(stringID).getInfo(),crs:'EPSG:4326',region:aoi,scale:30,maxPixels:1e13});
+      var createdScene = ee.Image(ee.String(sensorInfo).cat(item).getInfo()).select(['B2','B3','B4']).clip(aoi);
+      Export.image.toDrive({image:createdScene,description:item.getInfo(),crs:'EPSG:4326',region:aoi,scale:30,maxPixels:1e13});
     }
   }
   
@@ -533,4 +525,6 @@ ui.root.add(panel).add(map);
               See line: 111
                 WAS: var s1_p = S1.filter(basicFilter).filter(ee.Filter.eq('transmitterReceiverPolarisation', s1Bands)).select(s1Bands).filter(ee.Filter.eq('resolution','H')).filterBounds(aoi);
                 NOW: var s1_p = S1.filter(basicFilter).filter(ee.Filter.listContains('transmitterReceiverPolarisation', s1Bands)).select(s1Bands).filter(ee.Filter.eq('resolution','H')).filterBounds(aoi);
+2017/10/03  - Updated the Export.toDrive functionality, full scene exports now work, no longer return error message: "Error: Export region contains no valid (un-masked) pixels."
+            - Also removed unnessecary variable string ID which was equal to ee.String(item); item can just be used instead.
 */
